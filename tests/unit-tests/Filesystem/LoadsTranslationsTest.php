@@ -17,6 +17,7 @@ namespace Hyn\Tenancy\Tests\Filesystem;
 use Hyn\Tenancy\Tests\Test;
 use Hyn\Tenancy\Website\Directory;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 
 class LoadsTranslationsTest extends Test
 {
@@ -93,6 +94,8 @@ EOM
 
     protected function saveAndConfirmTenantTranslation()
     {
+        Artisan::call('lang:publish');
+
         $original = include base_path('lang/en/passwords.php');
 
         $this->assertEquals($original['reset'], trans('passwords.reset', [], 'en'));
